@@ -339,8 +339,8 @@ for (i in 1:length(BC_files)) {
    sample_name_curr <-  gsub("\\.fastq$", "", basename(BC_files_bn_fq[i]))
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), sep = "\n")
-   system(command = paste0(ARTIC, " minion --normalise 200 --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_preprocessing, "/basecalling/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
-  
+   setwd(d3)
+   system(command = paste0(ARTIC, " minion --normalise 200 --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
    cat(text = paste0("Plotting coverage distribution for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Plotting coverage distribution  for sample  ", sample_name_curr), sep = "\n")
    system(command = cat(paste0(BEDTOOLS, " coverage -mean -a ", BED, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk 'function log10(number) {return log(number)/log(10.0)}' { if ($5 < 1) print $4\t0; else print $4\tlog10($5)}\' | sed '1 i\tAmplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat")))
