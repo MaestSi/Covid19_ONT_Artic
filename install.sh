@@ -32,10 +32,12 @@ source activate Covid19_ONT_Artic_env
 python setup.py install
 cd ..
 conda install seqtk r bioconductor-biostrings r-ggplot2 r-scales NanoFilt
+conda deactivate
 conda create -n pycoQC_env pip
 source activate pycoQC_env
 python -m pip install pycoQC
-ln -s "$MINICONDA_DIR/envs/pycoQC_env/bin/pycoQC $MINICONDA_DIR/envs/Covid19_ONT_Artic_env/bin"
+cd "$MINICONDA_DIR/envs/Covid19_ONT_Artic_env/bin"
+ln -s "$MINICONDA_DIR/envs/pycoQC_env/bin/pycoQC"
 conda deactivate
 
 cd $PIPELINE_DIR
