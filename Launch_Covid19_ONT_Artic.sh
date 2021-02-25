@@ -20,6 +20,6 @@
 
 RAW_READS_DIR=$1
 RAW_READS_DIR_FULL=$(realpath $RAW_READS_DIR)
-source activate Covid_ONT_Artic_env
+source activate Covid19_ONT_Artic_env
 PIPELINE_DIR=$(realpath $( dirname "${BASH_SOURCE[0]}" ))
 nohup Rscript $PIPELINE_DIR/Covid19_ONT_Artic.R $PIPELINE_DIR/config_Covid19_ONT_Artic.R $RAW_READS_DIR_FULL &
