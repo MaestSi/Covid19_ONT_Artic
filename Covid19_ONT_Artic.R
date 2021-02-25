@@ -343,8 +343,8 @@ for (i in 1:length(BC_files)) {
    system(command = paste0(ARTIC, " minion --normalise 200 --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
    cat(text = paste0("Plotting coverage distribution for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Plotting coverage distribution  for sample  ", sample_name_curr), sep = "\n")
-   system(command = cat(paste0(BEDTOOLS, " coverage -mean -a ", BED, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk 'function log10(number) {return log(number)/log(10.0)} { if ($5 < 1) print $4\"\\t\"0; else print $4\"\\t\"log10($5)}' | sed  '1 i\\Amplicon\\tCoverage' > ", d3, "/", sample_name_curr, ".dat")))
-   system(command = cat(paste0(BEDTOOLS, " coverage -mean -a ", BED, " -b ", d3, "/", sample_name_curr, ".sorted.bam > ", d3, "/", sample_name_curr, "_linear.dat"))) 
+   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk -v OFS='\t' 'function log10(number) {return log(number)/log(10.0)} { if ($5 < 1) print $4, 0; else print $4, log10($5)}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat"))
+   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED, " -b ", d3, "/", sample_name_curr, ".sorted.bam  | awk -v OFS='\t' '{print $4, $5}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, "_linear.dat"))
    coverage_data <- read.table(paste0(d3, "/", sample_name_curr, ".dat"), stringsAsFactors = FALSE, header = TRUE)
   
    ggplot(coverage_data, aes(x = Amplicon, y = Coverage)) +
