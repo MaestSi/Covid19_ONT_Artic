@@ -372,7 +372,7 @@ for (i in 1:length(BC_files)) {
    cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), sep = "\n")
    system(command = paste0(BEDTOOLS, " intersect -header -wa -a ", BED_VAR, " -b ", d3, "/",  sample_name_curr, ".pass.vcf.gz > ", d3, "/", sample_name_curr, ".pass_intersected_BED_VAR.vcf"))
-   curr_sample_files <- list.files(path = d3, pattern = sample_name_curr, full.names = TRUE)
+   curr_sample_files <- paste0(list.files(path = d3, pattern = sample_name_curr, full.names = TRUE), collapse = " ")
    dir.create(paste0(d3, "/", sample_name_curr))
    system(command = paste0("mv ", curr_sample_files, " ", d3, "/", sample_name_curr))
 }
