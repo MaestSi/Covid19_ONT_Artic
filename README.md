@@ -2,6 +2,10 @@
 
 **Covid19_ONT_Artic** is a set of scripts for running the [ARTIC pipeline](https://github.com/artic-network/fieldbioinformatics) from fast5 ONT data to filtered SARS-CoV-2 variants and coverage plots.
 
+<p align="center">
+  <img src="Figures/Covid19_ONT_Artic_coverage_plots.png" alt="drawing" width="400" title="Coverage plots">
+</p>
+
 ## Getting started
 
 **Prerequisites**
@@ -67,7 +71,6 @@ Outputs (saved in \<fast5_dir\>\_analysis/basecalling):
 
 Outputs (saved in \<fast5_dir\>\_analysis/preprocessing):
 * Temporary files for demultiplexing, filtering based on read length and adapters trimming
-
 
 ## Auxiliary scripts
 
