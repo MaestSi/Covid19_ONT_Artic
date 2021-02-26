@@ -111,8 +111,8 @@ if (!dir.exists(d3)) {
   dir.create(d3)
 }
 
-cat(text = "Welcome to Covid ONT Artic pipeline!", file = logfile, sep = "\n", append = TRUE)
-cat(text = "Welcome to Covid ONT Artic pipeline!", sep = "\n")
+cat(text = "Welcome to Covid19 ONT Artic pipeline!", file = logfile, sep = "\n", append = TRUE)
+cat(text = "Welcome to Covid19 ONT Artic pipeline!", sep = "\n")
 cat(text = "\n", file = logfile, append = TRUE)
 cat(text = "\n")
 
@@ -395,5 +395,5 @@ cat(text = "\n", file = logfile, append = TRUE)
 cat(text = "\n")
 cat(text = paste0("Workflow ended at ", date(), "!"), file = logfile, sep = "\n", append = TRUE)  
 cat(text = paste0("Workflow ended at ", date(), "!"), sep = "\n")
-cat(text = paste0("Look at the preprocessed reads in directory ", d3), file = logfile, sep = "\n", append = TRUE)
-cat(text = paste0("Look at the preprocessed reads in directory ", d3), sep = "\n")
+cat(text = paste0("Look at the results in directory ", d3), file = logfile, sep = "\n", append = TRUE)
+cat(text = paste0("Look at the results in directory ", d3), sep = "\n")
