@@ -52,8 +52,10 @@ min_qual <- 7
 min_seq_length <- 400
 #max_seq_length is the maximum sequence length (bp) to be retained
 max_seq_length <- 700
-#BED file for coverage calculation
-BED <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
+#BED_COV file for coverage calculation
+BED_COV <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
+#BED_VAR file with positions of interest to genotype
+BED_VAR <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
 ########################################################################################################
 PIPELINE_DIR <- "/path/to/Covid_ONT_Artic_pipeline"
 #MINICONDA DIR
