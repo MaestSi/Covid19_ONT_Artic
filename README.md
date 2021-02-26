@@ -26,7 +26,7 @@ wget /path/to/ont-guppy-cpu_version_of_interest.tar.gz
 tar -xf ont-guppy-cpu_version_of_interest.tar.gz
 ```
 A directory _ont-guppy-cpu_ should have been created in your current directory.
-Then, after completing _MetONTIIME_ installation, set the _BASECALLER_DIR_ variable in **config_Covid19_ONT_Artic.R** to the full path to _ont-guppy-cpu/bin_ directory.
+Then, after completing _Covid19_ONT_Artic_ installation, set the _BASECALLER_DIR_ variable in **config_Covid19_ONT_Artic.R** to the full path to _ont-guppy-cpu/bin_ directory.
 
 **Installation**
 
