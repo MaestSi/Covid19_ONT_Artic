@@ -219,7 +219,7 @@ if (!dir.exists(d2_preprocessing)) {
     for (i in 1:length(fastq_files)) {
       num_reads_tot <- num_reads_tot + length(grep(x = readLines(fastq_files[i]), pattern = "^\\+$"))
     }
-    system(paste0("cat ", paste0(fastq_files, collapse = " "), " > ", d2_preprocessing, "/BC01_tmp0.fastq"))
+    system(paste0("cat ", paste0(fastq_files, collapse = " "), " > ", d2_preprocessing, "/BC01_tmp1.fastq"))
     cat(text = "\n", file = logfile, append = TRUE)
     cat(text = "\n")
   } else {
