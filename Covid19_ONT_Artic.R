@@ -356,7 +356,7 @@ for (i in 1:length(BC_files)) {
    theme(plot.title=element_text(size=20, hjust = 0.5)) +
    scale_y_continuous(breaks = c(0, 1, 2, 3, 4, 5), labels=c("0","10","100","1000","10000","100000"), limits=c(0, 5)) +
    scale_x_discrete(name = "Amplicon", limits = as.character(coverage_data$Amplicon)) +
-   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.text.y=element_text(size=30))
+   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1), axis.text.y=element_text(size=20))
   
    ggsave(
    paste0(d3, "/", sample_name_curr, "_PrimerCov.png"),
