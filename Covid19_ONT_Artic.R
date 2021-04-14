@@ -99,6 +99,10 @@ if (pair_strands_flag_cpu == 1) {
   basecaller <- paste0(BASECALLER_DIR, "/guppy_basecaller")
 }
 
+if (!exists("BED_VAR")) {
+  BED_VAR <- ""
+}
+
 demultiplexer <- paste0(BASECALLER_DIR, "/guppy_barcoder")
 
 basecaller_version <- system(paste0(basecaller, " --version"), intern = TRUE)[1]
@@ -340,7 +344,7 @@ for (i in 1:length(BC_files)) {
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), sep = "\n")
    setwd(d3)
-   system(command = paste0(ARTIC, " minion --normalise 200 --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
+   system(command = paste0(ARTIC, " minion --normalise 200 --strict --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
    cat(text = paste0("Plotting coverage distribution for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Plotting coverage distribution  for sample  ", sample_name_curr), sep = "\n")
    system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk -v OFS='\t' 'function log10(number) {return log(number)/log(10.0)} { if ($5 < 1) print $4, 0; else print $4, log10($5)}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat"))
@@ -369,14 +373,21 @@ for (i in 1:length(BC_files)) {
    units = c("in", "cm", "mm"),
    dpi = 1000,
    limitsize = TRUE)
-   cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
-   cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), sep = "\n")
-   system(command = paste0(BEDTOOLS, " intersect -header -wa -a ", d3, "/",  sample_name_curr, ".pass.vcf.gz -b ", BED_VAR, " > ", d3, "/", sample_name_curr, ".pass_intersected_BED_VAR.vcf"))
-   system(command = paste0(BEDTOOLS, " intersect -wa -a ", BED_VAR, " -b ", d3, "/", sample_name_curr, ".coverage_mask.txt > ", d3, "/", sample_name_curr, "_NOT_GENOTYPED_VAR.bed"))   
+
+   if (file.exists(BED_VAR)) {
+     cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
+     cat(text = paste0("Filtering variants of interest for sample  ", sample_name_curr), sep = "\n")
+     system(command = paste0(BEDTOOLS, " intersect -header -wa -a ", d3, "/",  sample_name_curr, ".pass.vcf.gz -b ", BED_VAR, " > ", d3, "/", sample_name_curr, ".pass_intersected_BED_VAR.vcf"))
+     system(command = paste0(BEDTOOLS, " intersect -wa -a ", BED_VAR, " -b ", d3, "/", sample_name_curr, ".coverage_mask.txt > ", d3, "/", sample_name_curr, "_NOT_GENOTYPED_VAR.bed"))   
+   }
    curr_sample_files <- paste0(list.files(path = d3, pattern = sample_name_curr, full.names = TRUE), collapse = " ")
    dir.create(paste0(d3, "/", sample_name_curr))
    system(command = paste0("mv ", curr_sample_files, " ", d3, "/", sample_name_curr))
 }
+
+cat(text = "Running MultiQC", file = logfile, sep = "\n", append = TRUE)
+cat(text = "Running MultiQC", sep = "\n")
+system(command = paste0(MULTIQC, " ", d3))
 
 if (save_space_flag == 1) {
   cat(text = "\n", file = logfile, append = TRUE)

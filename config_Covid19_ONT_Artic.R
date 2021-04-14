@@ -35,7 +35,7 @@ gpu_basecalling_flag <- 0
 #conf_par_gpu is the name of the config file and the device for GPU-accelerated basecalling in case gpu_basecalling_flag <- 1
 conf_par_gpu <- " -c dna_r9.4.1_450bps_hac.cfg --device 'auto' "
 #fast_basecalling_flag_cpu <- 1 if you want to use the fast basecalling algorithm for R9.4 flow-cell; otherwise set fast_basecalling_flag_cpu <- 0 if you want to use the accurate but slow one
-fast_basecalling_flag_cpu <- 0
+fast_basecalling_flag_cpu <- 1
 #pair_strands_flag_cpu <- 1 if, in case a 1d2 kit and FLO-MIN107 flow-cell have been used, you want to perform 1d2 basecalling; otherwise set pair_strands_flag_cpu <- 0
 pair_strands_flag_cpu <- 0
 #set the maximum number of threads to be used
@@ -54,7 +54,7 @@ min_seq_length <- 400
 max_seq_length <- 700
 #BED_COV file for coverage calculation
 BED_COV <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
-#BED_VAR file with positions of interest to genotype
+#BED_VAR file with positions of interest to genotype, leave commented if you are interested in all variants
 BED_VAR <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
 ########################################################################################################
 PIPELINE_DIR <- "/path/to/Covid_ONT_Artic_pipeline"
@@ -80,3 +80,6 @@ NANOFILT <- paste0(MINICONDA_DIR, "/envs/Covid19_ONT_Artic_env/bin/NanoFilt")
 ARTIC <- paste0(MINICONDA_DIR, "/envs/Covid19_ONT_Artic_env/bin/artic")
 #BEDTOOLS
 BEDTOOLS <- paste0(MINICONDA_DIR, "/envs/Covid19_ONT_Artic_env/bin/bedtools")
+#MULTIQC
+MULTIQC <- paste0(MINICONDA_DIR, "/envs/Covid19_ONT_Artic_env/bin/multiqc")
+
