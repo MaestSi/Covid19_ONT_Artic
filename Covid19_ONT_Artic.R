@@ -99,8 +99,16 @@ if (pair_strands_flag_cpu == 1) {
   basecaller <- paste0(BASECALLER_DIR, "/guppy_basecaller")
 }
 
+if(!exists("strict_var_flag")) {
+  strict_var_flag <- 0
+}
+
 if (!exists("BED_VAR")) {
   BED_VAR <- ""
+}
+
+if (!exists("BED_COV")) {
+  BED_COV <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
 }
 
 demultiplexer <- paste0(BASECALLER_DIR, "/guppy_barcoder")
@@ -344,7 +352,12 @@ for (i in 1:length(BC_files)) {
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Running Artic pipeline for sample  ", sample_name_curr), sep = "\n")
    setwd(d3)
-   system(command = paste0(ARTIC, " minion --normalise 200 --strict --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
+   if (strict_var_flag == 1) {
+     system(command = paste0(ARTIC, " minion --normalise 200 --strict --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
+   }
+   else {
+     system(command = paste0(ARTIC, " minion --normalise 200 --threads ", num_threads, " --scheme-directory ", PIPELINE_DIR, "/fieldbioinformatics/primer_schemes/ --read-file ", BC_files_fq[i], " --fast5-directory ", d1, " --sequencing-summary ", d2_basecalling, "/sequencing_summary.txt nCoV-2019/V3 ", sample_name_curr))
+   }
    cat(text = paste0("Plotting coverage distribution for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Plotting coverage distribution  for sample  ", sample_name_curr), sep = "\n")
    system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk -v OFS='\t' 'function log10(number) {return log(number)/log(10.0)} { if ($5 < 1) print $4, 0; else print $4, log10($5)}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat"))
@@ -385,9 +398,11 @@ for (i in 1:length(BC_files)) {
    system(command = paste0("mv ", curr_sample_files, " ", d3, "/", sample_name_curr))
 }
 
-cat(text = "Running MultiQC", file = logfile, sep = "\n", append = TRUE)
-cat(text = "Running MultiQC", sep = "\n")
-system(command = paste0(MULTIQC, " ", d3))
+if (strict_var_flag == 1) {
+  cat(text = "Running MultiQC", file = logfile, sep = "\n", append = TRUE)
+  cat(text = "Running MultiQC", sep = "\n")
+  system(command = paste0(MULTIQC, " ", d3))
+}
 
 if (save_space_flag == 1) {
   cat(text = "\n", file = logfile, append = TRUE)

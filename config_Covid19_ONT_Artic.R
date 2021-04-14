@@ -52,6 +52,8 @@ min_qual <- 7
 min_seq_length <- 400
 #max_seq_length is the maximum sequence length (bp) to be retained
 max_seq_length <- 700
+#set strict_var_flag <- 1 if you want to apply stringent filters for variants called in regions covered by two amplicons
+strict_var_flag <- 0
 #BED_COV file for coverage calculation
 BED_COV <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCoV-2019.insert.bed")
 #BED_VAR file with positions of interest to genotype, leave commented if you are interested in all variants
