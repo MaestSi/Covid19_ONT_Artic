@@ -69,6 +69,10 @@ BED_VAR <- paste0(PIPELINE_DIR, "/artic-ncov2019/primer_schemes/nCoV-2019/V3/nCo
 suppressMessages(library(Biostrings))
 #load stats package
 suppressMessages(library(stats))
+#load scales package
+suppressMessages(library(scales))
+#load ggplot2 package
+suppressMessages(library(ggplot2))
 #path to subsample fast5
 subsample_fast5 <- paste0(PIPELINE_DIR, "/subsample_fast5.sh")
 #########################################################################################################
