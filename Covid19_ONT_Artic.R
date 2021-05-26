@@ -360,8 +360,8 @@ for (i in 1:length(BC_files)) {
    }
    cat(text = paste0("Plotting coverage distribution for sample  ", sample_name_curr), file = logfile, sep = "\n", append = TRUE)
    cat(text = paste0("Plotting coverage distribution  for sample  ", sample_name_curr), sep = "\n")
-   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk -v OFS='\t' 'function log10(number) {return log(number)/log(10.0)} { if ($7 < 1) print $4, 0; else print $4, log10($7)}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat"))
-   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam  | awk -v OFS='\t' '{print $4, $7}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, "_linear.dat"))
+   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam | awk -v OFS='\t' 'function log10(number) {return log(number)/log(10.0)} { if ($NF < 1) print $4, 0; else print $4, log10($NF)}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, ".dat"))
+   system(command = paste0(BEDTOOLS, " coverage -mean -a ", BED_COV, " -b ", d3, "/", sample_name_curr, ".sorted.bam  | awk -v OFS='\t' '{print $4, $NF}' | sed  \'1 i\\Amplicon\tCoverage\' > ", d3, "/", sample_name_curr, "_linear.dat"))
    coverage_data <- read.table(paste0(d3, "/", sample_name_curr, ".dat"), stringsAsFactors = FALSE, header = TRUE)
    coverage_data_ceil <- coverage_data
    coverage_data_ceil[which(coverage_data_ceil[, 2] > 5), 2] <- 5
