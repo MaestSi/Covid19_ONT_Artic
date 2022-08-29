@@ -84,7 +84,6 @@ Note: script run by _Launch_Covid19_ONT_Artic.sh_.
 
 Note: configuration script, must be modified before running _Launch_Covid19_ONT_Artic.sh_.
 
-
 **subsample_fast5.sh**
 
 Note: script run by _Covid19_ONT_Artic.R_ if _do_subsampling_flag_ variable is set to 1 in _config_Covid19_ONT_Artic.R_.
@@ -97,3 +96,8 @@ Example data for sample SP1, the first case in Sao Paulo (Brasil), can be downlo
   <img src="Figures/Example_Coverage_Plot.png" alt="drawing" width="600" title="Coverage plot">
 </p>
 
+## Citation
+
+If this tool is useful for your work, please consider citing our [manuscript](https://academic.oup.com/biomethods/advance-article/doi/10.1093/biomethods/bpac020/6675448).
+
+Maestri S., Grosso V., Alfano M., Lavezzari D., Piubelli C., Bisoffi Z., Rossato M., Delledonne M., STArS (STrain-Amplicon-Seq), a targeted Nanopore sequencing workflow for SARS-CoV-2 diagnostics and genotyping, Biology Methods and Protocols, 2022;, bpac020, https://doi.org/10.1093/biomethods/bpac020
